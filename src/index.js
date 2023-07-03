@@ -73,12 +73,19 @@ function Menu() {
   return (
     <main className="menu">
       <h2>Our Menu.</h2>
+
       {numPizzas > 0 ? (
-        <ul className="pizzas">
-          {pizzaData.map((pizza, index) => (
-            <Pizza key={index} pizzaObject={pizza} />
-          ))}
-        </ul>
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from our stone oven, all organic, all delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzaData.map((pizza, index) => (
+              <Pizza key={index} pizzaObject={pizza} />
+            ))}
+          </ul>
+        </>
       ) : (
         <p>We're still working on our menu. Please come back later :)</p>
       )}
@@ -100,15 +107,15 @@ function Menu() {
 }
 
 function Pizza({ pizzaObject }) {
-  if (pizzaObject.soldOut) return null;
+  // if (pizzaObject.soldOut) return null;
 
   return (
-    <li className="pizza">
+    <li className={`pizza ${pizzaObject.soldOut ? 'sold-out' : ''}`}>
       <img src={pizzaObject.photoName} alt={pizzaObject.name} />
       <div>
         <h3>{pizzaObject.name}</h3>
         <p>{pizzaObject.ingredients}</p>
-        <span>{pizzaObject.price}</span>
+        <span>{pizzaObject.soldOut ? 'SOLD OUT' : pizzaObject.price}</span>
       </div>
     </li>
   );
@@ -147,6 +154,7 @@ function Order({ openHour, closeHour }) {
         We're open currently from {openHour}:00 to {closeHour}:00 come visit us
         or order online.
       </p>
+
       <button className="btn">Order</button>
     </div>
   );
